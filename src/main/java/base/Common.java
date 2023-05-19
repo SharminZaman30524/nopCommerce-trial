@@ -6,15 +6,20 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.xml.XmlTest;
 
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
@@ -106,6 +111,27 @@ public class Common {
         return driver.getCurrentUrl();
     }
 
+    /** Mouse Hover */
+    public static void hover(WebElement element) {
+        try {
+            Actions actions = new Actions(driver);
+            actions.moveToElement(element).build().perform();
+        } catch (Exception ex) {
+            wait.until(ExpectedConditions.visibilityOf(element));
+            Actions actions = new Actions(driver);
+            actions.moveToElement(element).build().perform();
+        }
+    }
+    /**Dropdown*/
+    public void selectFromDropdown(WebElement dropdown, String option) {
+        Select select = new Select(dropdown);
+        try {
+            select.selectByVisibleText(option);
+        } catch (Exception e) {
+            select.selectByValue(option);
+        }
+    }
+
     /**
      * Helper Methods
      */
@@ -118,6 +144,22 @@ public class Common {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+    public void doUploadFile(String filePath) throws AWTException {
+        //first click on element
+        StringSelection ss = new StringSelection(filePath);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
+        Robot robot = new Robot();
+        robot.delay(250);
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.delay(90);
+        robot.keyRelease(KeyEvent.VK_ENTER);
     }
 
 }
