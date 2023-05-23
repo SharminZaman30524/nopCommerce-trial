@@ -6,6 +6,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ShoppingCartPage extends Common {
     @FindBy(xpath = "//input[@class='qty-input']")
     public WebElement updateQuantityInput;
@@ -22,6 +25,8 @@ public class ShoppingCartPage extends Common {
     public WebElement checkoutButton;
     @FindBy(xpath = "//button[@class='button-1 checkout-as-guest-button']")
     public WebElement checkoutAsAGuestButton;
+    @FindBy(xpath = "//td[@class='subtotal']")
+    public List<WebElement> wishListSubtotals;
 
     public ShoppingCartPage() {PageFactory.initElements(driver,this);}
 
@@ -45,6 +50,14 @@ public class ShoppingCartPage extends Common {
     }
     public void clickCheckoutAsAGuest() {
         click(checkoutAsAGuestButton);
+    }
+
+    public List<Float> getSubtotalValue() {
+        List<Float> subtotals = new ArrayList<>();
+        for (WebElement element : wishListSubtotals) {
+            subtotals.add(Float.parseFloat(getTextFromWebElement(element).substring(1).replace(",", "")));
+        }
+        return subtotals;
     }
 
 }

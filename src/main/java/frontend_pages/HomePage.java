@@ -12,6 +12,8 @@ public class HomePage extends Common {
     public WebElement computersLink;
     @FindBy(xpath = "//a[@href='/notebooks']")
     public WebElement notebooksLink;
+    @FindBy(xpath = "//a[@href='/desktops']")
+    public WebElement desktopsLink;
     @FindBy(xpath = "//a[@href='/apple-macbook-pro-13-inch']")
     public WebElement macbookPro13InchLink;
     @FindBy(xpath = "//input[@id='product_enteredQuantity_4']")
@@ -40,6 +42,9 @@ public class HomePage extends Common {
     }
     public void clickNotebooksOption() {
         click(notebooksLink);
+    }
+    public void clickDesktopOption() {
+        click(desktopsLink);
     }
     public void clickMacbookPro13InchLink() {
         click(macbookPro13InchLink);

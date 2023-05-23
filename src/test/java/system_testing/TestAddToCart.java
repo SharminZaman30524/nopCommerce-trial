@@ -1,17 +1,22 @@
 package system_testing;
 
-import frontend_pages.CheckoutPage;
-import frontend_pages.HomePage;
+import com.google.common.primitives.Floats;
+import frontend_pages.*;
 import base.Common;
-import frontend_pages.ShoppingCartPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestAddToCart extends Common {
     HomePage homePage;
     ShoppingCartPage shoppingCartPage;
     CheckoutPage checkoutPage;
-    @Test(enabled=false)
+    DesktopPage desktopPage;
+    WishlistPage wishlistPage;
+
+    @Test(enabled = false)
     public void testInvalidQuantityAddToCart() throws InterruptedException {
         homePage = new HomePage();
         homePage.hoverOverComputersMenuOption();
@@ -25,8 +30,9 @@ public class TestAddToCart extends Common {
         homePage.clickCloseNotification();
         Thread.sleep(3000);
     }
-    @Test
-    public void testAddToCart() throws InterruptedException {
+
+    @Test(enabled = false)
+    public void testValidAddToCart() throws InterruptedException {
         homePage = new HomePage();
         homePage.hoverOverComputersMenuOption();
         homePage.clickNotebooksOption();
@@ -57,4 +63,29 @@ public class TestAddToCart extends Common {
         Thread.sleep(3000);
     }
 
+    @Test
+    public void testAddProductValueOve1000() throws InterruptedException {
+        homePage = new HomePage();
+        homePage.hoverOverComputersMenuOption();
+        homePage.clickDesktopOption();
+        desktopPage = new DesktopPage();
+        desktopPage.clickAddToWishList("Digital Storm VANQUISH 3 Custom Performance PC");
+        Thread.sleep(1000);
+        desktopPage.clickAddToWishList("Lenovo IdeaCentre 600 All-in-One PC");
+        desktopPage.clickWishlistLink();
+        wishlistPage = new WishlistPage();
+        wishlistPage.addToCartValueOver1000();
+        Thread.sleep(2000);
+        wishlistPage.clickAddToCartButton();
+        //List<Float> values = new ArrayList<>();
+        shoppingCartPage = new ShoppingCartPage();
+        for (Float values : shoppingCartPage.getSubtotalValue()) {
+            if (values > 1000) {
+                Assert.assertTrue(true);
+            } else {
+                Assert.assertFalse(false);
+            }
+            Thread.sleep(5000);
+        }
+    }
 }
