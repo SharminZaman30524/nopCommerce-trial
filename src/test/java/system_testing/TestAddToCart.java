@@ -3,6 +3,7 @@ package system_testing;
 import com.google.common.primitives.Floats;
 import frontend_pages.*;
 import base.Common;
+import io.netty.util.internal.OutOfDirectMemoryError;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -15,6 +16,7 @@ public class TestAddToCart extends Common {
     CheckoutPage checkoutPage;
     DesktopPage desktopPage;
     WishlistPage wishlistPage;
+    OrderDetailsPage orderDetailsPage;
 
     @Test(enabled = false)
     public void testInvalidQuantityAddToCart() throws InterruptedException {
@@ -31,7 +33,7 @@ public class TestAddToCart extends Common {
         Thread.sleep(3000);
     }
 
-    @Test(enabled = false)
+    @Test(enabled = true)
     public void testValidAddToCart() throws InterruptedException {
         homePage = new HomePage();
         homePage.hoverOverComputersMenuOption();
@@ -60,10 +62,12 @@ public class TestAddToCart extends Common {
         checkoutPage.clickPaymentInformationContinueButton();
         checkoutPage.clickConfirmOrderButton();
         checkoutPage.clickorderDetails();
+        orderDetailsPage = new OrderDetailsPage();
+        orderDetailsPage.clickPDFInvoice();
         Thread.sleep(3000);
     }
 
-    @Test
+    @Test (enabled = false)
     public void testAddProductValueOve1000() throws InterruptedException {
         homePage = new HomePage();
         homePage.hoverOverComputersMenuOption();

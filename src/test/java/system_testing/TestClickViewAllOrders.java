@@ -15,7 +15,10 @@ public class TestClickViewAllOrders extends Common {
         SharedUI sharedUI = new SharedUI();
         Thread.sleep(3000);
         /*try {*/
-            sharedUI.selectOption(SharedUI.MenuOption.CUSTOMERS);
+            sharedUI.selectOption(SharedUI.MenuOption.CATALOG);
+            sharedUI.selectOption(SharedUI.MenuOption.ATTRIBUTES);
+
+            //sharedUI.selectSUBOption(SharedUI.MenuOption.CATALOG);
        /* } catch (StaleElementReferenceException ex) {
             sharedUI.selectOption(SharedUI.MenuOption.CATALOG);
         }*/

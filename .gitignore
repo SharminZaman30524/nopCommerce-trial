@@ -6,6 +6,7 @@
 reports/
 screenshot/
 *DS_Store/
+*downloads
 # Compiled class file
 *.class
 
