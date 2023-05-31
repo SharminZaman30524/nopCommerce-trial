@@ -27,6 +27,8 @@ public class HomePage extends Common {
     @FindBy(xpath = "//a[@href='/cart']")
     public WebElement shoppingCartNotificationButton;
 
+    @FindBy(xpath = "//a[@href='/register?returnUrl=%2F']") public WebElement registerLink;
+
 
 
     public HomePage() {PageFactory.initElements(driver, this);}
@@ -63,6 +65,7 @@ public class HomePage extends Common {
     public void clickShoppingCartNotification() {
         click(shoppingCartNotificationButton);
     }
+    public void clickRegister() {click(registerLink);}
 
 }
 

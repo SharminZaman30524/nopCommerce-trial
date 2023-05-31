@@ -6,11 +6,16 @@ import base.Common;
 import io.netty.util.internal.OutOfDirectMemoryError;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utility.GenerateRandomData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestAddToCart extends Common {
+    String firstName = GenerateRandomData.firstName();
+    String lastName = GenerateRandomData.lastName();
+    String email = "@gmail.com";
+    String areaCode = "(718)";
     HomePage homePage;
     ShoppingCartPage shoppingCartPage;
     CheckoutPage checkoutPage;
@@ -46,16 +51,16 @@ public class TestAddToCart extends Common {
         shoppingCartPage.clickCheckout();
         shoppingCartPage.clickCheckoutAsAGuest();
         checkoutPage = new CheckoutPage();
-        checkoutPage.enterFirstName("Sharmin");
-        checkoutPage.enterLastName("Zaman");
-        checkoutPage.enterEmail("zamansharmin000@gmail.com");
+        checkoutPage.enterFirstName(firstName);
+        checkoutPage.enterLastName(lastName);
+        checkoutPage.enterEmail(firstName + lastName + email);
         checkoutPage.selectCountry("United States");
         Thread.sleep(3000);
-        checkoutPage.selectState("New York");
-        checkoutPage.enterCity("Queens");
-        checkoutPage.enterAddress("Shometheifjew");
-        checkoutPage.enterZipCode("12344");
-        checkoutPage.enterPhoneNumber("234567654321");
+        checkoutPage.selectState(GenerateRandomData.state());
+        checkoutPage.enterCity(GenerateRandomData.city());
+        checkoutPage.enterAddress(GenerateRandomData.address());
+        checkoutPage.enterZipCode(GenerateRandomData.zipcode());
+        checkoutPage.enterPhoneNumber(areaCode + String.valueOf(GenerateRandomData.phone()));
         checkoutPage.clickBillingAddressContinueButton();
         checkoutPage.clickShippingMethodContinueButton();
         checkoutPage.clickPaymentMethodContinueButton();
